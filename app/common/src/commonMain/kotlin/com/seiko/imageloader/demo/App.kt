@@ -63,11 +63,12 @@ fun App() {
 @Composable
 private fun ImageList(modifier: Modifier = Modifier) {
     var images by remember { mutableStateOf(emptyList<Image>()) }
+    val resLoader = LocalResLoader.current
     LaunchedEffect(Unit) {
         images = withContext(Dispatchers.Default) {
-            val jpegs = imageJsonData.decodeJson<List<Image>>()
-            val gifs = imageJsonDataGif.decodeJson<List<Image>>()
-            val svgs = imageJsonDataSvg.decodeJson<List<Image>>()
+            val jpegs = resLoader.getString(MR.assets.jpgs).decodeJson<List<Image>>()
+            val gifs = resLoader.getString(MR.assets.gifs).decodeJson<List<Image>>()
+            val svgs = resLoader.getString(MR.assets.svgs).decodeJson<List<Image>>()
             (jpegs + gifs + svgs).shuffled()
         }
     }

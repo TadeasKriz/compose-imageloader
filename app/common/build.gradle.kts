@@ -1,12 +1,9 @@
-import org.jetbrains.compose.compose
-
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization").version(Versions.Kotlin.lang)
     id("org.jetbrains.compose").version(Versions.compose_jb)
     id("com.android.library")
-    // task error: Cannot change attributes of dependency configuration ':app:common:iosArm64ApiElements' after it has been resolved
-    // id("dev.icerock.mobile.multiplatform-resources").version(Versions.multiplatformResources)
+    id("dev.icerock.mobile.multiplatform-resources").version(Versions.multiplatformResources)
 }
 
 kotlin {
@@ -34,10 +31,10 @@ kotlin {
                 // implementation("androidx.compose.foundation:foundation:${Versions.compose}")
             }
         }
-        val jvmMain by sourceSets.getting
-        val iosMain by sourceSets.getting
-        val iosArm64Main by sourceSets.getting
-        val iosX64Main by sourceSets.getting
+        val jvmMain by getting
+        val iosMain by getting
+        val iosArm64Main by getting
+        val iosX64Main by getting
     }
 }
 
@@ -55,9 +52,6 @@ android {
     }
 }
 
-// multiplatformResources {
-//     multiplatformResourcesPackage = "com.seiko.imageloader.demo"
-// }
-
-// skip task because it's failed on gradle 7 and we not use results of this processing
-// tasks.getByName("iosArm64ProcessResources").enabled = false
+multiplatformResources {
+    multiplatformResourcesPackage = "com.seiko.imageloader.demo"
+}
